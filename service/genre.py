@@ -5,18 +5,21 @@ class GenreService:
     def __init__(self, dao: GenreDAO):
         self.dao = dao
 
-    def get_one(self, bid):
-        return self.dao.get_one(bid)
+    def get_one(self, genre_id):
+        return self.dao.get_one(genre_id)
 
     def get_all(self):
         return self.dao.get_all()
 
-    def create(self, genre_d):
-        return self.dao.create(genre_d)
+    def create(self, data):
+        return self.dao.create(data)
 
-    def update(self, genre_d):
-        self.dao.update(genre_d)
-        return self.dao
+    def update(self, data):
+        genre_id = data.get("id")
+        genre = self.dao.get_one(genre_id)
+        genre.name = data.get('name')
 
-    def delete(self, rid):
-        self.dao.delete(rid)
+        self.dao.update(data)
+
+    def delete(self, genre_id):
+        self.dao.delete(genre_id)

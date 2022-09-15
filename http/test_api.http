@@ -1,0 +1,131 @@
+POST  http://127.0.0.1:10001/users/
+Accept: application/json
+Content-Type: application/json
+
+{
+  "username": "Petr",
+  "password": "P@ssw0rd",
+  "role": "admin"
+}
+
+###
+
+POST  http://127.0.0.1:10001/users/
+Accept: application/json
+Content-Type: application/json
+
+{
+  "username": "Darja",
+  "password": "qwerty",
+  "role": "user"
+}
+
+###
+
+GET http://127.0.0.1:10001/movies/21
+Accept: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6IlBldHIiLCJyb2xlIjoiYWRtaW4iLCJleHAiOjE2NjMyNTM4NjZ9.Jrk7R8ztLhrqnSuZFlZqizj4_TklyEpdGeX0p60x170
+
+###
+
+GET http://127.0.0.1:10001/movies/?director_id=5
+Accept: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6IlBldHIiLCJyb2xlIjoiYWRtaW4iLCJleHAiOjE2NjMyNTA4OTN9.889xwZWiijkiBvCD419hNAfGl8M6vut3xMmaDQtkc6c
+
+###
+
+GET http://127.0.0.1:10001/movies/?genre_id=4
+Accept: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6IlBldHIiLCJyb2xlIjoiYWRtaW4iLCJleHAiOjE2NjMyNTA4OTN9.889xwZWiijkiBvCD419hNAfGl8M6vut3xMmaDQtkc6c
+
+###
+
+GET http://127.0.0.1:10001/movies/?year=1980
+Accept: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6IlBldHIiLCJyb2xlIjoiYWRtaW4iLCJleHAiOjE2NjMyNTA4OTN9.889xwZWiijkiBvCD419hNAfGl8M6vut3xMmaDQtkc6c
+
+###
+
+GET http://127.0.0.1:10001/directors/
+Accept: application/json
+
+###
+
+POST http://127.0.0.1:10001/directors/
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6IlBldHIiLCJyb2xlIjoiYWRtaW4iLCJleHAiOjE2NjMxODcyMjV9.UFk6CbAQQtT3JnqtaPtrVCFlHeqhvPtC9oaB3SFlQPU
+
+{
+  "name": "Боб Гейл"
+}
+
+###
+
+GET http://127.0.0.1:10001/directors/1
+Accept: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6Ikl2YW4iLCJyb2xlIjoiYWRtaW4iLCJleHAiOjE2NjMxODI1OTV9.UbXWPg_np68FJp6j8YFsfQdPZzq9Kmyy3LIwonOJ44M
+###
+
+GET http://127.0.0.1:10001/genres/
+Accept: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6IkRhcmphIiwicm9sZSI6InVzZXIiLCJleHAiOjE2NjMyNTIxMjR9.WccMcotSSnPM7XdUbwfNmlwb6PCCgCbQL8TnUZAJia4
+
+###
+
+GET http://127.0.0.1:10001/genres/1
+Accept: application/json
+
+###
+
+GET http://127.0.0.1:10001/movies/21
+Accept: application/json
+
+###
+
+POST http://127.0.0.1:10001/movies/
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6IlBldHIiLCJyb2xlIjoiYWRtaW4iLCJleHAiOjE2NjMyNTM4NjZ9.Jrk7R8ztLhrqnSuZFlZqizj4_TklyEpdGeX0p60x170
+
+{
+  "title": "Гарри Поттер мой кумир!",
+  "trailer": "таким фильмам не нужны трейлеры",
+  "year": 1990,
+  "rating": 10,
+  "description": "10 из 10!"
+}
+
+###
+
+PUT http://127.0.0.1:10001/movies/22
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6IlBldHIiLCJyb2xlIjoiYWRtaW4iLCJleHAiOjE2NjMyNTM4NjZ9.Jrk7R8ztLhrqnSuZFlZqizj4_TklyEpdGeX0p60x170
+
+{
+  "title": "Трасса 60",
+  "trailer": "https://www.youtube.com/watch?v=CynYc-HDwDc",
+  "year": 2002,
+  "rating": 8,
+  "description": "В легендах и мифах есть персонажи, главная задача которых — исполнять желания. У арабов — это джинны, у ирландцев — лепреконы, у китайцев — драконы, у европейцев — феи и лесные духи. А в Америке есть некто О. Ж. Грант — довольно странный и забавный человек, который тоже может исполнить любое Ваше желание. Но будьте осторожны — он очень проказлив! Вот его-то и встречает однажды Нейл Оливер.",
+  "genre_id": 5,
+  "director_id": 22
+}
+
+###
+
+PATCH http://127.0.0.1:10001/movies/22
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6IlBldHIiLCJyb2xlIjoiYWRtaW4iLCJleHAiOjE2NjMyNTQzMjZ9.MvSY1i1IxUqmCieeFOlFnzaFiftGeTr_y_KxK2J6koc
+
+{
+  "title": "Трасса 60"
+}
+
+###
+
+DELETE http://127.0.0.1:10001/movies/23
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6IlBldHIiLCJyb2xlIjoiYWRtaW4iLCJleHAiOjE2NjMyNTM4NjZ9.Jrk7R8ztLhrqnSuZFlZqizj4_TklyEpdGeX0p60x170

@@ -1,0 +1,7 @@
+POST http://127.0.0.1:10001/auth/
+Content-Type: application/json
+
+{
+  "username": "Petr",
+  "password": "P@ssw0rd"
+}
