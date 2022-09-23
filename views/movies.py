@@ -1,8 +1,9 @@
 from flask import request
 from flask_restx import Resource, Namespace
-from dao.model.movie import MovieSchema
+from dao.models import MovieSchema
 from container import movie_service
-from helpers.decorators import auth_required, admin_required
+from helpers.decorators import auth_required
+from helpers.parsers import page_parser
 
 movie_ns = Namespace('movies')
 
@@ -11,7 +12,6 @@ movies_schema = MovieSchema(many=True)
 
 
 @movie_ns.route('/')
-@movie_ns.route('/page/<int:page>')
 class MoviesView(Resource):
     """
     The view contains requests to DB about all movies,
@@ -20,22 +20,24 @@ class MoviesView(Resource):
     """
 
     @auth_required
-    def get(self, page=None):
-        all_movies = movie_service.get_all(page)
+    @movie_ns.expect(page_parser)
+    def get(self):
+
+        all_movies = movie_service.get_all(**page_parser.parse_args())
 
         # key names in the request as list
-        query_params = [i for i in request.args.keys()]
+        all_query_params = [i for i in request.args.keys()]
+        status_query = request.args.get("status")
 
         try:
-            if not query_params:
+            if not all_query_params or 'page' in all_query_params and len(all_query_params) == 1:
                 return movies_schema.dump(all_movies), 200
             else:
-                movies_by_filter = movie_service.get_by_filter()
+                movies_by_filter = movie_service.get_by_filter(status_query, **page_parser.parse_args())
                 return movies_schema.dump(movies_by_filter), 200
         except Exception as e:
             return str(e), 404
 
-    @admin_required
     def post(self):
         request_json = request.json
         new_movie = movie_service.create(request_json)
@@ -54,21 +56,21 @@ class MovieView(Resource):
         movie = movie_service.get_one(mid)
         return movie_schema.dump(movie), 200
 
-    @admin_required
+    @auth_required
     def put(self, mid: int):
         request_json = request.json
         request_json["id"] = mid
         movie_service.update(request_json)
         return "", 204
 
-    @admin_required
+    @auth_required
     def patch(self, mid: int):
         request_json = request.json
         request_json["id"] = mid
         movie_service.update_partial(request_json)
         return "", 204
 
-    @admin_required
+    @auth_required
     def delete(self, mid: int):
         movie_service.delete(mid)
         return "", 204

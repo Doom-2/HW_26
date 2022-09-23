@@ -1,8 +1,9 @@
 from flask import request
 from flask_restx import Resource, Namespace
-from dao.model.genre import GenreSchema
+from dao.models import GenreSchema
 from container import genre_service
-from helpers.decorators import auth_required, admin_required
+from helpers.decorators import auth_required
+from helpers.parsers import page_parser
 
 genre_ns = Namespace('genres')
 
@@ -14,12 +15,14 @@ genres_schema = GenreSchema(many=True)
 class GenresView(Resource):
 
     @auth_required
+    @genre_ns.expect(page_parser)
+    # @genre_ns.marshal_with(genres_schema, as_list=True, code=200, description='OK')
     def get(self):
-        all_genres = genre_service.get_all()
+        all_genres = genre_service.get_all(**page_parser.parse_args())
         response = genres_schema.dump(all_genres)
         return response, 200
 
-    @admin_required
+    @auth_required
     def post(self):
         request_json = request.json
         new_genre = genre_service.create(request_json)
@@ -30,19 +33,20 @@ class GenresView(Resource):
 class GenreView(Resource):
 
     @auth_required
+    @genre_ns.response(404, 'Not Found')
     def get(self, genre_id):
         single_genre = genre_service.get_one(genre_id)
-        response = genres_schema.dump(single_genre)
+        response = genre_schema.dump(single_genre)
         return response, 200
 
-    @admin_required
+    @auth_required
     def put(self, genre_id: int):
         request_json = request.json
         request_json["id"] = genre_id
         genre_service.update(request_json)
         return "", 204
 
-    @admin_required
+    @auth_required
     def delete(self, genre_id: int):
         genre_service.delete(genre_id)
         return "", 204

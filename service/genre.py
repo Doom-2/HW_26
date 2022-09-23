@@ -1,15 +1,18 @@
 from dao.genre import GenreDAO
+from helpers.exceptions import ItemNotFound
 
 
 class GenreService:
     def __init__(self, dao: GenreDAO):
         self.dao = dao
 
-    def get_one(self, genre_id):
-        return self.dao.get_one(genre_id)
+    def get_all(self, page=None):
+        return self.dao.get_all(page)
 
-    def get_all(self):
-        return self.dao.get_all()
+    def get_one(self, genre_id):
+        if genre := self.dao.get_one(genre_id):
+            return genre
+        raise ItemNotFound(f'Genre with pk={genre_id} not exists.')
 
     def create(self, data):
         return self.dao.create(data)

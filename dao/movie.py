@@ -1,5 +1,6 @@
-from flask import request
-from dao.model.movie import Movie
+from sqlalchemy import desc
+from dao.models import Movie
+from flask import current_app
 
 
 class MovieDAO:
@@ -9,24 +10,30 @@ class MovieDAO:
     def get_one(self, mid):
         return self.session.query(Movie).get_or_404(mid)
 
-    def get_all(self):
-        return self.session.query(Movie).all()
+    def get_all(self, page):
+        if not page:
+            return self.session.query(Movie).all()
+        else:
+            return self.session.query(Movie).paginate(
+                page,
+                current_app.config['ITEMS_PER_PAGE'],
+                error_out=False
+            ).items
 
-    def get_all_paginate(self, page):
-        return self.session.query(Movie).paginate(page, 5, error_out=False).items
+    def get_by_filter(self, _filter=None, page=None):
 
-    def get_by_filter(self):
-        # Query values after '='
-        director_id_query = request.args.get("director_id", type=int)
-        genre_id_query = request.args.get("genre_id", type=int)
-        year_query = request.args.get("year", type=int)
+        if _filter == 'new':
+            filtered_movies = self.session.query(Movie).order_by(desc(Movie.year))
+        else:
+            filtered_movies = self.session.query(Movie).order_by(Movie.year)
 
-        if director_id_query:
-            return self.session.query(Movie).filter(Movie.director_id == director_id_query)
-        elif genre_id_query:
-            return self.session.query(Movie).filter(Movie.genre_id == genre_id_query)
-        elif year_query:
-            return self.session.query(Movie).filter(Movie.year == year_query)
+        if page:
+            return filtered_movies.paginate(
+                page,
+                current_app.config['ITEMS_PER_PAGE'],
+                error_out=False
+            ).items
+        return filtered_movies
 
     def create(self, data):
         movie = Movie(**data)
@@ -42,6 +49,18 @@ class MovieDAO:
         self.session.commit()
 
         return movie
+
+    def get_favorites(self, user):
+        user_favorite_movies = user.likes
+        return user_favorite_movies
+
+    def add_to_favorites(self, movie, user):
+        user.likes.append(movie)
+        self.session.commit()
+
+    def delete_from_favorites(self, movie, user):
+        user.likes.remove(movie)
+        self.session.commit()
 
     def delete(self, mid):
         movie = self.get_one(mid)

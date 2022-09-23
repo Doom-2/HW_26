@@ -1,7 +1,20 @@
-POST http://127.0.0.1:10001/auth/
+POST http://127.0.0.1:5000/auth/login
 Content-Type: application/json
 
 {
-  "username": "Petr",
-  "password": "P@ssw0rd"
+  "email": "test@mail.com",
+  "password": "qwertY"
 }
+
+###
+
+
+POST http://127.0.0.1:5000/auth/login
+Content-Type: application/json
+
+{
+  "email": "test_2@mail.com",
+  "password": "qwerty"
+}
+
+###

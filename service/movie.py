@@ -5,14 +5,11 @@ class MovieService:
     def __init__(self, dao: MovieDAO):
         self.dao = dao
 
-    def get_all(self, page):
-        if page is None:
-            return self.dao.get_all()
-        else:
-            return self.dao.get_all_paginate(page)
+    def get_all(self, page=None):
+        return self.dao.get_all(page)
 
-    def get_by_filter(self):
-        return self.dao.get_by_filter()
+    def get_by_filter(self, _filter=None, page=None):
+        return self.dao.get_by_filter(_filter, page)
 
     def get_one(self, mid):
         return self.dao.get_one(mid)
@@ -54,6 +51,15 @@ class MovieService:
             movie.director_id = data.get('director_id')
 
         self.dao.update(movie)
+
+    def get_favorites(self, user):
+        return self.dao.get_favorites(user)
+
+    def add_to_favorites(self, movie, user):
+        return self.dao.add_to_favorites(movie, user)
+
+    def delete_from_favorites(self, movie, user):
+        return self.dao.delete_from_favorites(movie, user)
 
     def delete(self, mid):
         self.dao.delete(mid)

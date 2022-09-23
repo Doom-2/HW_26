@@ -1,4 +1,4 @@
-from dao.model.user import User
+from dao.models import User
 
 
 class UserDAO:
@@ -11,8 +11,8 @@ class UserDAO:
     def get_one(self, uid):
         return self.session.query(User).get(uid)
 
-    def get_by_username(self, username):
-        return self.session.query(User).filter(User.username == username).first()
+    def get_by_email(self, email):
+        return self.session.query(User).filter(User.email == email).first()
 
     def create(self, user_data):
         user = User(**user_data)
@@ -21,12 +21,11 @@ class UserDAO:
         return user
 
     def update(self, user_data):
-        user = self.get_one(user_data.get("id"))
-        user.name = user_data.get("name")
-        user.password = user_data.get("password")
-        user.role = user_data.get("role")
-        self.session.add(user)
+
+        self.session.add(user_data)
         self.session.commit()
+
+        return user_data
 
     def delete(self, uid):
         user = self.get_one(uid)

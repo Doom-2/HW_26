@@ -1,4 +1,5 @@
-from dao.model.director import Director
+from dao.models import Director
+from flask import current_app
 
 
 class DirectorDAO:
@@ -8,8 +9,15 @@ class DirectorDAO:
     def get_one(self, dir_id):
         return self.session.query(Director).get(dir_id)
 
-    def get_all(self):
-        return self.session.query(Director).all()
+    def get_all(self, page=None):
+        if not page:
+            return self.session.query(Director).all()
+        else:
+            return self.session.query(Director).paginate(
+                page,
+                current_app.config['ITEMS_PER_PAGE'],
+                error_out=False
+            ).items
 
     def create(self, data):
         director = Director(**data)

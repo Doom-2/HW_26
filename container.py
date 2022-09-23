@@ -7,7 +7,7 @@ from service.director import DirectorService
 from service.genre import GenreService
 from service.user import UserService
 from service.auth import AuthService
-from setup_db import db
+from db_utils.setup_db import db
 
 movie_dao = MovieDAO(db.session)
 movie_service = MovieService(movie_dao)

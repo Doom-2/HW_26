@@ -1,40 +1,37 @@
 from flask import request
 from flask_restx import Resource, Namespace
-from container import user_service
-from dao.model.user import UserSchema
+from container import user_service, auth_service
+from helpers.decorators import auth_required
+from utils import bytes_to_dict
 
-user_ns = Namespace('users')
-
-user_schema = UserSchema()
-users_schema = UserSchema(many=True)
+user_ns = Namespace('user')
 
 
 @user_ns.route('/')
-class UsersView(Resource):
-    def get(self):
-        all_users = user_service.get_all()
-        response = users_schema.dump(all_users)
-        return response, 200
-
-    def post(self):
-        request_json = request.json
-        new_user = user_service.create(request_json)
-        return "", 201, {"location": f"{new_user.id}"}
-
-
-@user_ns.route('/<int:uid>')
+@user_ns.route('/password')
 class UserView(Resource):
-    def get(self, uid):
-        single_user = user_service.get_one(uid)
-        response = user_schema.dump(single_user)
-        return response, 200
+    @auth_required
+    def get(self):
+        return "", 200
 
-    def put(self, uid: int):
-        request_json = request.json
-        request_json["id"] = uid
-        user_service.update(request_json)
+    @auth_required
+    def put(self):
+        request_data = bytes_to_dict(request.data)
+        token = request.headers['Authorization'].split("Bearer ")[-1]
+        user_instance = auth_service.get_user_by_token(token)
+        if not user_service.compare_passwords(user_instance.password, request_data['old_password']):
+            return "Old password is wrong, try again", 401
+        request_data["id"] = user_instance.id
+        user_service.update_password(request_data)
+
         return "", 204
 
-    def delete(self, uid: int):
-        user_service.delete(uid)
+    @auth_required
+    def patch(self):
+        request_data = bytes_to_dict(request.data)
+        token = request.headers['Authorization'].split("Bearer ")[-1]
+        user_instance = auth_service.get_user_by_token(token)
+        request_data["id"] = user_instance.id
+        user_service.update_partial(request_data)
+
         return "", 204
