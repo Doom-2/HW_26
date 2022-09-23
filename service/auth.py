@@ -49,7 +49,7 @@ class AuthService:
             key=current_app.config['JWT_SECRET'],
             algorithms=[current_app.config['JWT_ALGORITHM']]
         )
-        user_e_mail = data.get("e_mail")
+        user_e_mail = data.get("email")
 
         return self.generate_tokens(user_e_mail, None, is_refresh=True)
 
