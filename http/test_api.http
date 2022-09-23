@@ -1,23 +1,32 @@
-POST  http://127.0.0.1:10001/users/
+POST  http://127.0.0.1:5000/auth/register
 Accept: application/json
 Content-Type: application/json
 
 {
-  "username": "Petr",
-  "password": "P@ssw0rd",
-  "role": "admin"
+  "email": "peter@mail.ru",
+  "password": "Qwerty"
 }
 
 ###
 
-POST  http://127.0.0.1:10001/users/
+POST  http://127.0.0.1:5000/auth/register
 Accept: application/json
 Content-Type: application/json
 
 {
-  "username": "Darja",
-  "password": "qwerty",
-  "role": "user"
+  "email": "darja@mail.ru",
+  "password": "qWerty"
+}
+
+###
+
+POST  http://127.0.0.1:5000/auth/register
+Accept: application/json
+Content-Type: application/json
+
+{
+  "email": "ivan@mail.ru",
+  "password": "qwErty"
 }
 
 ###
@@ -115,13 +124,13 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6IlBld
 
 ###
 
-PATCH http://127.0.0.1:10001/movies/22
+PATCH http://127.0.0.1:5000/movies/5
 Accept: application/json
 Content-Type: application/json
 Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6IlBldHIiLCJyb2xlIjoiYWRtaW4iLCJleHAiOjE2NjMyNTQzMjZ9.MvSY1i1IxUqmCieeFOlFnzaFiftGeTr_y_KxK2J6koc
 
 {
-  "title": "Трасса 60"
+  "trailer": "https://www.youtube.com/watch?v=ulEvyBtBXHQ"
 }
 
 ###

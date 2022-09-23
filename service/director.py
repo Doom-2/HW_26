@@ -8,8 +8,8 @@ class DirectorService:
     def get_one(self, dir_id):
         return self.dao.get_one(dir_id)
 
-    def get_all(self):
-        return self.dao.get_all()
+    def get_all(self, page=None):
+        return self.dao.get_all(page)
 
     def create(self, data):
         return self.dao.create(data)

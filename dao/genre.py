@@ -1,4 +1,5 @@
-from dao.model.genre import Genre
+from dao.models import Genre
+from flask import current_app
 
 
 class GenreDAO:
@@ -8,8 +9,14 @@ class GenreDAO:
     def get_one(self, genre_id):
         return self.session.query(Genre).get(genre_id)
 
-    def get_all(self):
-        return self.session.query(Genre).all()
+    def get_all(self, page):
+        if not page:
+            return self.session.query(Genre).all()
+        else:
+            return self.session.query(Genre).paginate(
+                page, current_app.config['ITEMS_PER_PAGE'],
+                error_out=False
+            ).items
 
     def create(self, data):
         genre = Genre(**data)
