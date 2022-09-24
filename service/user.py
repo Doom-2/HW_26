@@ -42,7 +42,7 @@ class UserService:
         if "surname" in user_data:
             user.surname = user_data.get('surname')
         if "favourite_genre" in user_data:
-            user.favourite_genre = user_data.get('favourite_genre')
+            user.favourite_genre_id = user_data.get('favourite_genre')
         self.dao.update(user)
 
     def delete(self, uid):

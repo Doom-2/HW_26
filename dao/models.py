@@ -14,20 +14,14 @@ class User(db.Model):
     password = db.Column(db.String, nullable=False)
     name = db.Column(db.String)
     surname = db.Column(db.String)
-    favourite_genre = db.Column(db.Integer, db.ForeignKey("genres.id"))
+    favourite_genre_id = db.Column(db.Integer, db.ForeignKey("genres.id"))
+    favourite_genre = db.relationship("Genre")
 
     likes = db.relationship(
         'Movie',
         secondary=user_movie,
         backref=db.backref('users')
     )
-
-
-class UserSchema(Schema):
-    id = fields.Int()
-    email = fields.Str()
-    name = fields.Str()
-    surname = fields.Str()
 
 
 class Movie(db.Model):
@@ -47,6 +41,14 @@ class Movie(db.Model):
 class GenreSchema(Schema):
     id = fields.Int()
     name = fields.Str()
+
+
+class UserSchema(Schema):
+    id = fields.Int()
+    email = fields.Str()
+    name = fields.Str()
+    surname = fields.Str()
+    favourite_genre = fields.Nested(GenreSchema)
 
 
 class DirectorSchema(Schema):
