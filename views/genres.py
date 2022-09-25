@@ -16,7 +16,6 @@ class GenresView(Resource):
 
     @auth_required
     @genre_ns.expect(page_parser)
-    # @genre_ns.marshal_with(genres_schema, as_list=True, code=200, description='OK')
     def get(self):
         all_genres = genre_service.get_all(**page_parser.parse_args())
         response = genres_schema.dump(all_genres)
