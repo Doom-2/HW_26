@@ -5,7 +5,7 @@ class MovieService:
     def __init__(self, dao: MovieDAO):
         self.dao = dao
 
-    def get_all(self, page=None):
+    def get_all(self, page):
         return self.dao.get_all(page)
 
     def get_new(self, _filter, page):
