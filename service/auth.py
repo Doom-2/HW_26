@@ -53,9 +53,9 @@ class AuthService:
 
         return self.generate_tokens(user_e_mail, None, is_refresh=True)
 
-    def get_user_by_token(self, refresh_token):
+    def get_user_by_token(self, token):
         payload = jwt.decode(
-            jwt=refresh_token,
+            jwt=token,
             key=current_app.config['JWT_SECRET'],
             algorithms=[current_app.config['JWT_ALGORITHM']]
         )
