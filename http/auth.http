@@ -14,7 +14,7 @@ Content-Type: application/json
 
 {
   "email": "darja@mail.ru",
-  "password": "qwerty"
+  "password": "qWerty"
 }
 
 ###
