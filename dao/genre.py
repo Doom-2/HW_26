@@ -9,7 +9,7 @@ class GenreDAO:
     def get_one(self, genre_id):
         return self.session.query(Genre).get(genre_id)
 
-    def get_all(self, page):
+    def get_all(self, page=None):
         if not page:
             return self.session.query(Genre).all()
         else:

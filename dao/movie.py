@@ -10,7 +10,7 @@ class MovieDAO:
     def get_one(self, mid):
         return self.session.query(Movie).get_or_404(mid)
 
-    def get_all(self, page):
+    def get_all(self, page=None):
         if not page:
             return self.session.query(Movie).all()
         else:
