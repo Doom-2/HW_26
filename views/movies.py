@@ -26,15 +26,15 @@ class MoviesView(Resource):
         all_movies = movie_service.get_all(**page_parser.parse_args())
 
         # key names in the request as list
-        all_query_params = [i for i in request.args.keys()]
+        query_params = [i for i in request.args.keys()]
         status_query = request.args.get("status")
 
         try:
-            if not all_query_params or 'page' in all_query_params and len(all_query_params) == 1:
+            if not query_params or 'page' in query_params and len(query_params) == 1:
                 return movies_schema.dump(all_movies), 200
             else:
-                movies_by_filter = movie_service.get_by_filter(status_query, **page_parser.parse_args())
-                return movies_schema.dump(movies_by_filter), 200
+                only_new_movies = movie_service.get_new(status_query, **page_parser.parse_args())
+                return movies_schema.dump(only_new_movies), 200
         except Exception as e:
             return str(e), 404
 
