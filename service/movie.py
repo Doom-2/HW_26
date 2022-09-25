@@ -8,8 +8,8 @@ class MovieService:
     def get_all(self, page=None):
         return self.dao.get_all(page)
 
-    def get_by_filter(self, _filter=None, page=None):
-        return self.dao.get_by_filter(_filter, page)
+    def get_new(self, _filter, page):
+        return self.dao.get_new(_filter, page)
 
     def get_one(self, mid):
         return self.dao.get_one(mid)
