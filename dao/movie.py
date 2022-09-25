@@ -20,7 +20,7 @@ class MovieDAO:
                 error_out=False
             ).items
 
-    def get_by_filter(self, _filter=None, page=None):
+    def get_new(self, _filter=None, page=None):
 
         if _filter == 'new':
             filtered_movies = self.session.query(Movie).order_by(desc(Movie.year))
