@@ -16,7 +16,6 @@ class FavoritesView(Resource):
         token = request.headers['Authorization'].split("Bearer ")[-1]
         user_instance = auth_service.get_user_by_token(token)
         user_favorites_movies = movie_service.get_favorites(user_instance)
-        print(request.headers)
         return movies_schema.dump(user_favorites_movies), 200
 
 
