@@ -1,3 +1,9 @@
+import sys
+import os
+current = os.path.dirname(os.path.realpath(__file__))
+parent = os.path.dirname(current)
+sys.path.append(parent)
+
 from contextlib import suppress
 from typing import Any, Dict, List
 from sqlalchemy.exc import IntegrityError
@@ -6,7 +12,7 @@ from utils import read_json
 from dao.models import Genre
 from dao.models import Director
 from dao.models import Movie
-from db_utils.setup_db import db
+from setup_db import db
 
 
 def load_data(data: List[Dict[str, Any]], model) -> None:
