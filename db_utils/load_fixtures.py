@@ -12,7 +12,7 @@ from utils import read_json
 from dao.models import Genre
 from dao.models import Director
 from dao.models import Movie
-from setup_db import db
+from db_utils.setup_db import db
 
 
 def load_data(data: List[Dict[str, Any]], model) -> None:
