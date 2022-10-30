@@ -23,7 +23,6 @@ class UserService:
 
     def create(self, user_data):
         user_data["password"] = self.get_hash(user_data.get("password"))
-
         return self.dao.create(user_data)
 
     def update_password(self, user_data):
