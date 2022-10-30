@@ -11,7 +11,7 @@ class User(db.Model):
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(255), unique=True, nullable=False)
-    password = db.Column(db.String, nullable=False)
+    password = db.Column(db.LargeBinary, nullable=False)
     name = db.Column(db.String)
     surname = db.Column(db.String)
     favourite_genre_id = db.Column(db.Integer, db.ForeignKey("genres.id"))
@@ -28,7 +28,7 @@ class Movie(db.Model):
     __tablename__ = 'movies'
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(255))
-    description = db.Column(db.String(255))
+    description = db.Column(db.String(12255))
     trailer = db.Column(db.String(255))
     year = db.Column(db.Integer)
     rating = db.Column(db.Float)
