@@ -2,6 +2,7 @@
 dao/__pycache__
 helpers/__pycache__
 views/__pycache__
+db_utils/.pytest_cache
 .DS_Store
 __pycache__
 .pytest_cache
