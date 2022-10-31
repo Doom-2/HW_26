@@ -1,6 +1,5 @@
 name: CI
 on: [push]
-description: Build and deploy workflow
 jobs:
   build_and_push:
     runs-on: ubuntu-latest
