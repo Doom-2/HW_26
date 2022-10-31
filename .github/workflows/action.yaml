@@ -7,4 +7,10 @@ jobs:
       - name: clone code
         uses: actions/checkout@v2
       - name: docker build
-        run: docker build -t doom2/movies-4-u:$GITHUB_REF_NAME-GITHUB_RUN_ID .
+        env:
+          HOME: '/Lesson_26'
+        run: docker build -t {{ DOCKER_USER }}/{{ REPO_NAME }}:$GITHUB_REF_NAME-GITHUB_RUN_ID .
+      - name: docker login
+        run: echo ${{ secrets.DOCKER_TOKEN }} | docker login -u {{ secrets.DOCKER_USER }} --password-stdin
+      - name: docker push
+        run: docker push {{ DOCKER_USER }}/{{ REPO_NAME }}:$GITHUB_REF_NAME-GITHUB_RUN_ID
