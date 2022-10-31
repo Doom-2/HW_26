@@ -1,7 +1,9 @@
 
 FROM python:3.10-slim
 
-WORKDIR ${HOME}
+ENV HOME /Lesson_26
+
+WORKDIR $HOME
 
 ENV FLASK_APP=app.py
 
