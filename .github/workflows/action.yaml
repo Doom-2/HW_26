@@ -30,3 +30,12 @@ jobs:
           source: "deploy/*"
           target: "movies-4-u_docker"
           strip_components: 1
+      - name: deploy app
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          script: |
+            cd movies-4-u_docker
+            echo ${{ secrets.PASSWORD }} | sudo -S docker compose up -d
