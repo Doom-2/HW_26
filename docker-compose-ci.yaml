@@ -21,7 +21,7 @@ services:
     image: doom2/movies-4-u:$GITHUB_REF_NAME-$GITHUB_RUN_ID
     restart: always
     env_file:
-      - deploy/.env
+      - ./.env
     environment:
       POSTGRES_HOST: db
     ports:
