@@ -123,7 +123,7 @@
         t.setTime(t.getTime() + -1), document.cookie = e + "=; expires=" + t.toUTCString() + "; path=/"
     }
 
-    var H = w.a.create({baseURL: "http://51.250.73.167", headers: {Authorization: "Bearer " + S("AccessToken")}}),
+    var H = w.a.create({baseURL: "http://158.160.37.55", headers: {Authorization: "Bearer " + S("AccessToken")}}),
         T = function () {
             return H.get("/genres/")
         }, R = function (e) {
