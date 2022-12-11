@@ -20,4 +20,4 @@ COPY . .
 
 ENTRYPOINT ["bash", "entrypoint.sh"]
 
-CMD ["gunicorn", "-b 0.0.0.0:5000", "app:app", "-w", "4"]
+CMD ["gunicorn", "-b", "0.0.0.0:5000", "app:app", "-w", "4"]
