@@ -23,3 +23,5 @@ Details:
 - favorites table based on Many-To-Many Relationship
 - unit tests for DAO, services and views using
 - using the MagicMock method and pytest fixtures
+
+![Movies-4-U.gif](static%2Fimg%2FMovies-4-U.gif)
