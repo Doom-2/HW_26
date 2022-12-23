@@ -4,13 +4,13 @@
 
 [movies-4-u.ga](http://movies-4-u.ga)
 
-Features:
+#### Features:
 - User authentication with jwt
 - User profile, including password change ability
 - Favorites page
 - Filtering movies by director and genre
 
-Details:
+#### Details:
 - models based on ORM Flask SQLAlchemy
 - marshmallow serialization
 - PostgreSQL integration
