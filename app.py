@@ -1,4 +1,4 @@
-from flask import Flask, render_template, jsonify
+from flask import Flask, render_template, jsonify, Response
 from flask_restx import Api
 from flask_cors import CORS
 from config import Config
@@ -26,7 +26,12 @@ def create_app(config: Config) -> Flask:
     def index():
         return render_template('index.html')
 
+    @application.route('/ping')
+    def ping():
+        return Response({'status': 'Ok'}, status=200)
+
     return application
+
 
 
 def configure_app(application: Flask):
