@@ -33,7 +33,6 @@ def create_app(config: Config) -> Flask:
     return application
 
 
-
 def configure_app(application: Flask):
     CORS(app=app)
     db.init_app(application)
